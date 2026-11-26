@@ -123,6 +123,12 @@ def create_application() -> Application:
         .build()
     )
 
+    async def _error_handler(update: object, ctx: object) -> None:
+        err = getattr(ctx, "error", None)
+        logger.error("Telegram bot error occurred: %s (update: %s)", err, update)
+
+    application.add_error_handler(_error_handler)
+
     application.bot_data["redis_service"] = redis_service
     application.bot_data["ai_service"] = ai_service
     application.bot_data["vocab_ingestion"] = vocab_ingestion

@@ -29,7 +29,7 @@ def main() -> None:
     logger = logging.getLogger(__name__)
     logger.info("Starting Knowledge Distillation Telegram AI Bot...")
     application = create_application()
-    application.run_polling()
+    application.run_polling(drop_pending_updates=True)
 
 
 if __name__ == "__main__":
