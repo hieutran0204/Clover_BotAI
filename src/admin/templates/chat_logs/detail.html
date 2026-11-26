@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Chi Tiết Hội Thoại #{{ log.id }}{% endblock %}
+{% block page_title %}Chi Tiết Lượt Trò Chuyện (ShareGPT Format){% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-9">
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+        <div>
+          <span class="badge bg-secondary-subtle text-secondary me-2">ID: {{ log.id }}</span>
+          <span class="badge bg-light text-dark border me-2">
+            <i class="bi bi-person me-1"></i>User: {{ log.telegram_user_id }}
+          </span>
+          <span class="badge bg-primary-subtle text-primary">
+            {{ log.ai_backend }} / {{ log.model_name }}
+          </span>
+        </div>
+        <div>
+          <span class="badge badge-status-{{ log.status }} fs-6">{{ log.status }}</span>
+        </div>
+      </div>
+
+      <!-- Chat Bubble Container -->
+      <div class="card-body p-4 bg-light" style="min-height: 350px;">
+        <!-- User Bubble -->
+        <div class="chat-bubble-user shadow-sm">
+          <div class="small fw-bold text-uppercase mb-1 opacity-75">
+            <i class="bi bi-person-fill me-1"></i> Học Viên (User)
+          </div>
+          <div style="white-space: pre-wrap;">{{ log.prompt }}</div>
+        </div>
+
+        <!-- Assistant Bubble -->
+        <div class="chat-bubble-assistant shadow-sm">
+          <div class="small fw-bold text-uppercase mb-1 text-primary">
+            <i class="bi bi-robot me-1"></i> AI Assistant ({{ log.model_name }})
+          </div>
+          <div style="white-space: pre-wrap;">{{ log.response }}</div>
+        </div>
+      </div>
+
+      <!-- Moderation / Distillation Action Footer -->
+      <div class="card-footer bg-white p-3 d-flex justify-content-between align-items-center">
+        <a href="/admin/chat" class="btn btn-outline-secondary">
+          <i class="bi bi-arrow-left me-1"></i> Quay Lại Danh Sách
+        </a>
+        <div class="d-flex gap-2">
+          <form method="POST" action="/admin/chat/{{ log.id }}/status">
+            <input type="hidden" name="status" value="verified">
+            <button type="submit" class="btn btn-success" {% if log.status == 'verified' %}disabled{% endif %}>
+              <i class="bi bi-patch-check-fill me-1"></i> Đánh Dấu Chuẩn QLoRA (Verified)
+            </button>
+          </form>
+          <form method="POST" action="/admin/chat/{{ log.id }}/status">
+            <input type="hidden" name="status" value="rejected">
+            <button type="submit" class="btn btn-outline-danger" {% if log.status == 'rejected' %}disabled{% endif %}>
+              <i class="bi bi-x-circle me-1"></i> Loại Bỏ Khỏi Bộ Train
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

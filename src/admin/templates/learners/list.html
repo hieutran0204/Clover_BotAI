@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Quản Lý Học Viên & Lịch Học SM-2{% endblock %}
+{% block page_title %}Danh Sách Học Viên & Lịch Ôn Tập (SM-2 Spaced Repetition){% endblock %}
+
+{% block content %}
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <h6 class="fw-bold mb-1">Cấu Hình Lịch Học & Nhắc Nhở Tự Động</h6>
+        <p class="text-secondary small mb-0">Hệ thống lập lịch SM-2 hàng ngày tự động gửi từ vựng mới và kích hoạt câu hỏi trắc nghiệm theo múi giờ.</p>
+      </div>
+      <div>
+        <span class="badge bg-primary fs-6">{{ schedules|length }} Học viên đăng ký</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card border-0 shadow-sm">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-light">
+        <tr>
+          <th>Telegram User ID</th>
+          <th>Mục Tiêu Mỗi Ngày</th>
+          <th>Giờ Nhắc Nhở</th>
+          <th>Múi Giờ</th>
+          <th>Trạng Thái</th>
+          <th>Lần Giao Bài Gần Nhất</th>
+          <th class="text-end">Hành Động</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if schedules and schedules|length > 0 %}
+          {% for s in schedules %}
+            <tr>
+              <td class="fw-bold">
+                <i class="bi bi-person-circle text-primary me-2"></i>{{ s.telegram_user_id }}
+              </td>
+              <td>
+                <span class="badge bg-info-subtle text-info fs-6">{{ s.daily_new_words }} từ / ngày</span>
+              </td>
+              <td>
+                <span class="font-monospace fw-semibold">{{ '%02d' % s.reminder_hour }}:{{ '%02d' % s.reminder_minute }}</span>
+              </td>
+              <td class="text-secondary small">{{ s.timezone }}</td>
+              <td>
+                {% if s.is_active %}
+                  <span class="badge bg-success-subtle text-success"><i class="bi bi-bell-fill me-1"></i>Đang Bật</span>
+                {% else %}
+                  <span class="badge bg-secondary-subtle text-secondary"><i class="bi bi-bell-slash me-1"></i>Tạm Dừng</span>
+                {% endif %}
+              </td>
+              <td class="small text-secondary">
+                {{ s.last_enrolled_at.strftime('%d/%m/%Y %H:%M') if s.last_enrolled_at else 'Chưa giao bài' }}
+              </td>
+              <td class="text-end">
+                <form method="POST" action="/admin/learners/{{ s.telegram_user_id }}/toggle" style="display:inline;">
+                  <button type="submit" class="btn btn-sm {% if s.is_active %}btn-outline-warning{% else %}btn-outline-success{% endif %}">
+                    {% if s.is_active %}Tạm Dừng{% else %}Kích Hoạt{% endif %}
+                  </button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="7" class="text-center py-4 text-secondary">
+              Chưa có học viên nào thiết lập lịch học bằng lệnh <code>/vocab schedule</code>.
+            </td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+

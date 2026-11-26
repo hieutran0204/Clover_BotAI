@@ -1,0 +1,183 @@
+[
+  {
+    "word": "ubiquitous",
+    "phonetic": "/juːˈbɪk.wɪ.təs/",
+    "part_of_speech": "adjective",
+    "definition_vi": "Có mặt ở khắp mọi nơi, phổ biến rộng rãi",
+    "definition_en": "Present, appearing, or found everywhere",
+    "example_sentence": "Smartphones have become ubiquitous in modern daily life.",
+    "example_translation": "Điện thoại thông minh đã trở nên phổ biến ở khắp mọi nơi trong đời sống hằng ngày hiện đại.",
+    "cefr_level": "C1",
+    "quiz_question": "What does 'ubiquitous' mean in: 'Cloud services are now ubiquitous'?",
+    "quiz_options": [
+      "Extremely rare",
+      "Found everywhere",
+      "Very expensive",
+      "Outdated"
+    ],
+    "quiz_correct_index": 1
+  },
+  {
+    "word": "resilient",
+    "phonetic": "/rɪˈzɪl.jənt/",
+    "part_of_speech": "adjective",
+    "definition_vi": "Kiên cường, có khả năng phục hồi nhanh sau khó khăn",
+    "definition_en": "Able to withstand or recover quickly from difficult conditions",
+    "example_sentence": "A resilient backend architecture can recover gracefully from network failures.",
+    "example_translation": "Một kiến trúc backend vững vàng có thể phục hồi ổn định sau các sự cố mạng.",
+    "cefr_level": "B2",
+    "quiz_question": "Choose the closest meaning to 'resilient':",
+    "quiz_options": [
+      "Fragile",
+      "Able to recover quickly",
+      "Indifferent",
+      "Complicated"
+    ],
+    "quiz_correct_index": 1
+  },
+  {
+    "word": "pragmatic",
+    "phonetic": "/præɡˈmæt.ɪk/",
+    "part_of_speech": "adjective",
+    "definition_vi": "Thực tế, thực dụng theo hướng hiệu quả",
+    "definition_en": "Dealing with things sensibly and realistically in a practical way",
+    "example_sentence": "The engineering lead took a pragmatic approach to ship the MVP on time.",
+    "example_translation": "Trưởng nhóm kỹ thuật chọn cách tiếp cận thực tế để kịp ra mắt bản MVP đúng hạn.",
+    "cefr_level": "C1",
+    "quiz_question": "A 'pragmatic' decision is based mainly on:",
+    "quiz_options": [
+      "Practical results",
+      "Pure imagination",
+      "Old superstitions",
+      "Emotional impulse"
+    ],
+    "quiz_correct_index": 0
+  },
+  {
+    "word": "mitigate",
+    "phonetic": "/ˈmɪt.ɪ.ɡeɪt/",
+    "part_of_speech": "verb",
+    "definition_vi": "Làm dịu đi, giảm nhẹ rủi ro hoặc tác động xấu",
+    "definition_en": "Make something less severe, harmful, or painful",
+    "example_sentence": "Rate limiting helps mitigate the risk of abuse on public APIs.",
+    "example_translation": "Giới hạn tần suất giúp giảm thiểu rủi ro bị lạm dụng trên các API công khai.",
+    "cefr_level": "B2",
+    "quiz_question": "Which action best illustrates 'mitigate'?",
+    "quiz_options": [
+      "Increasing a problem",
+      "Ignoring a warning",
+      "Reducing the impact of a risk",
+      "Deleting all logs"
+    ],
+    "quiz_correct_index": 2
+  },
+  {
+    "word": "concise",
+    "phonetic": "/kənˈsaɪs/",
+    "part_of_speech": "adjective",
+    "definition_vi": "Ngắn gọn, súc tích mà vẫn đủ ý",
+    "definition_en": "Giving a lot of information clearly and in a few words",
+    "example_sentence": "Please keep your pull request description concise and informative.",
+    "example_translation": "Vui lòng giữ mô tả pull request ngắn gọn và đầy đủ thông tin.",
+    "cefr_level": "B2",
+    "quiz_question": "What is the opposite of 'concise'?",
+    "quiz_options": [
+      "Brief",
+      "Wordy and repetitive",
+      "Accurate",
+      "Clear"
+    ],
+    "quiz_correct_index": 1
+  },
+  {
+    "word": "bottleneck",
+    "phonetic": "/ˈbɒt.əl.nek/",
+    "part_of_speech": "noun",
+    "definition_vi": "Điểm nghẽn cổ chai, nút thắt làm chậm toàn hệ thống",
+    "definition_en": "A point of congestion in a system that slows down overall performance",
+    "example_sentence": "Unindexed database queries became the main bottleneck during peak traffic.",
+    "example_translation": "Các truy vấn cơ sở dữ liệu thiếu chỉ mục đã trở thành điểm nghẽn chính lúc cao điểm.",
+    "cefr_level": "B2",
+    "quiz_question": "In software engineering, a 'bottleneck' refers to:",
+    "quiz_options": [
+      "A component that limits overall throughput",
+      "A security certificate",
+      "A backup server",
+      "A user interface theme"
+    ],
+    "quiz_correct_index": 0
+  },
+  {
+    "word": "collaborate",
+    "phonetic": "/kəˈlæb.ə.reɪt/",
+    "part_of_speech": "verb",
+    "definition_vi": "Hợp tác, cộng tác cùng làm việc hướng tới mục tiêu chung",
+    "definition_en": "Work jointly on an activity or project",
+    "example_sentence": "Designers and developers collaborate closely to refine the user flow.",
+    "example_translation": "Nhà thiết kế và lập trình viên cộng tác chặt chẽ để tinh chỉnh luồng người dùng.",
+    "cefr_level": "B1",
+    "quiz_question": "To 'collaborate' means to:",
+    "quiz_options": [
+      "Compete alone",
+      "Work together toward a goal",
+      "Postpone a deadline",
+      "Reject feedback"
+    ],
+    "quiz_correct_index": 1
+  },
+  {
+    "word": "ambiguous",
+    "phonetic": "/æmˈbɪɡ.ju.əs/",
+    "part_of_speech": "adjective",
+    "definition_vi": "Mơ hồ, nhập nhằng có thể hiểu theo nhiều nghĩa",
+    "definition_en": "Open to more than one interpretation; not having one obvious meaning",
+    "example_sentence": "Ambiguous requirements often lead to rework later in the sprint.",
+    "example_translation": "Các yêu cầu mơ hồ thường dẫn đến việc phải làm lại về sau trong sprint.",
+    "cefr_level": "B2",
+    "quiz_question": "Why should API documentation avoid 'ambiguous' wording?",
+    "quiz_options": [
+      "Because readers may interpret it in conflicting ways",
+      "Because it makes the font too large",
+      "Because servers cannot parse Markdown",
+      "Because it lowers CPU speed"
+    ],
+    "quiz_correct_index": 0
+  },
+  {
+    "word": "escalate",
+    "phonetic": "/ˈes.kə.leɪt/",
+    "part_of_speech": "verb",
+    "definition_vi": "Leo thang, chuyển lên cấp cao hơn hoặc trở nên nghiêm trọng hơn",
+    "definition_en": "Increase rapidly or pass a problem to a higher authority for resolution",
+    "example_sentence": "When an outage lasts over 15 minutes, the on-call engineer must escalate the incident.",
+    "example_translation": "Khi sự cố kéo dài quá 15 phút, kỹ sư trực phải báo cáo leo thang lên cấp cao hơn.",
+    "cefr_level": "B2",
+    "quiz_question": "What does 'escalate an issue' mean at work?",
+    "quiz_options": [
+      "Hide the issue from teammates",
+      "Close the ticket without fixing it",
+      "Raise the issue to a higher level of support or urgency",
+      "Archive old messages"
+    ],
+    "quiz_correct_index": 2
+  },
+  {
+    "word": "streamline",
+    "phonetic": "/ˈstriːm.laɪn/",
+    "part_of_speech": "verb",
+    "definition_vi": "Tinh gọn, hợp lý hóa quy trình để hoạt động mượt mà hơn",
+    "definition_en": "Make an organization or system more efficient by simplifying or removing unnecessary steps",
+    "example_sentence": "Automated CI checks streamline code reviews across the whole team.",
+    "example_translation": "Kiểm tra CI tự động giúp tinh gọn quá trình review code cho cả nhóm.",
+    "cefr_level": "C1",
+    "quiz_question": "When you 'streamline' a workflow, you:",
+    "quiz_options": [
+      "Add unnecessary approval steps",
+      "Make it simpler and more efficient",
+      "Pause all deployments",
+      "Duplicate every spreadsheet"
+    ],
+    "quiz_correct_index": 1
+  }
+]
+

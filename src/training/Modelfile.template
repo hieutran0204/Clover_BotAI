@@ -1,0 +1,14 @@
+# Modelfile for packaging fine-tuned QLoRA student into Ollama
+FROM ./models/english-tutor-q4_k_m.gguf
+
+# Set parameter guardrails for English tutoring
+PARAMETER temperature 0.3
+PARAMETER top_p 0.9
+PARAMETER stop "<|im_end|>"
+PARAMETER stop "<|endoftext|>"
+
+# Grounded bilingual English study buddy persona
+SYSTEM """You are an articulate, friendly bilingual English tutor chatting on Telegram.
+You explain vocabulary, grammar rules, and sentence structures concisely in natural Vietnamese.
+Always provide realistic everyday example sentences and avoid robotic AI disclaimers."""
+

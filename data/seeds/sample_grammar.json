@@ -1,0 +1,183 @@
+[
+  {
+    "title": "Third Conditional Inversion",
+    "pattern_key": "third_conditional_inversion",
+    "formula": "Had + S + (not) + V3/ed, S + would/could/might + have + V3/ed",
+    "usage_vi": "Dùng để diễn tả một điều kiện trái với thực tế trong quá khứ một cách trang trọng. Đảo trợ động từ 'Had' lên đầu câu và bỏ 'If'.",
+    "examples": [
+      {
+        "sentence": "Had I mitigated the bottleneck earlier, the service would have been resilient.",
+        "translation": "Nếu tôi xử lý điểm nghẽn sớm hơn thì dịch vụ đã hoạt động bền bỉ rồi."
+      },
+      {
+        "sentence": "Had we known about the outage, we would have notified the users immediately.",
+        "translation": "Nếu chúng tôi biết trước về sự cố mất điện, chúng tôi đã thông báo ngay cho người dùng."
+      }
+    ],
+    "common_mistakes_vi": "Quên không bỏ 'If' khi đã đảo 'Had' (sai: If had I known), hoặc dùng nhầm thể quá khứ đơn 'did' thay vì 'had'.",
+    "cefr_level": "C1"
+  },
+  {
+    "title": "Second Conditional Inversion",
+    "pattern_key": "second_conditional_inversion",
+    "formula": "Were + S + to-V (hoặc Were + S + adj/noun), S + would/could/might + V-inf",
+    "usage_vi": "Dùng để diễn tả giả định trái ngược với hiện tại hoặc khó xảy ra trong tương lai một cách trang trọng, bỏ 'If' và đảo 'Were' lên đầu.",
+    "examples": [
+      {
+        "sentence": "Were the team to adopt this new framework, developer velocity would increase significantly.",
+        "translation": "Nếu nhóm áp dụng framework mới này, tốc độ phát triển sẽ tăng đáng kể."
+      },
+      {
+        "sentence": "Were I in your shoes, I would refactor this legacy module before launch.",
+        "translation": "Nếu tôi ở vị trí của bạn, tôi sẽ tái cấu trúc module cũ kỹ này trước khi ra mắt."
+      }
+    ],
+    "common_mistakes_vi": "Dùng 'Was' thay vì 'Were' trong câu đảo ngữ trang trọng (luôn luôn dùng Were cho mọi ngôi).",
+    "cefr_level": "B2"
+  },
+  {
+    "title": "First Conditional Inversion",
+    "pattern_key": "first_conditional_inversion",
+    "formula": "Should + S + (not) + V-inf, S + will/can/may/should + V-inf (hoặc câu mệnh lệnh)",
+    "usage_vi": "Dùng trong thư từ trang trọng hoặc hướng dẫn kỹ thuật để diễn tả sự việc có thể xảy ra trong tương lai. Bỏ 'If' và dùng 'Should' ở đầu câu.",
+    "examples": [
+      {
+        "sentence": "Should you encounter any database connection timeout, please check the connection pool size.",
+        "translation": "Nếu bạn gặp lỗi quá thời gian kết nối cơ sở dữ liệu, vui lòng kiểm tra kích thước connection pool."
+      },
+      {
+        "sentence": "Should any unexpected errors arise, the fallback pipeline will trigger automatically.",
+        "translation": "Nếu có bất kỳ lỗi ngoài ý muốn nào xuất hiện, luồng dự phòng sẽ tự động kích hoạt."
+      }
+    ],
+    "common_mistakes_vi": "Sau 'Should + S' lại chia động từ thêm -s/-es theo ngôi số ít (sau Should luôn là V nguyên mẫu).",
+    "cefr_level": "B2"
+  },
+  {
+    "title": "It-Cleft Sentences",
+    "pattern_key": "cleft_sentence_it",
+    "formula": "It is/was + [thành phần nhấn mạnh] + that/who + [mệnh đề còn lại]",
+    "usage_vi": "Dùng để nhấn mạnh một thành phần cụ thể trong câu (chủ ngữ, tân ngữ, hoặc trạng ngữ chỉ thời gian/nơi chốn/nguyên nhân).",
+    "examples": [
+      {
+        "sentence": "It was the lack of proper indexes that caused the slow response times.",
+        "translation": "Chính việc thiếu các chỉ mục thích hợp đã gây ra thời gian phản hồi chậm chạp."
+      },
+      {
+        "sentence": "It is through comprehensive unit testing that we maintain high code quality.",
+        "translation": "Chính nhờ việc viết test toàn diện mà chúng tôi duy trì được chất lượng code cao."
+      }
+    ],
+    "common_mistakes_vi": "Dùng sai thì giữa 'It is/was' và động từ trong mệnh đề sau (ví dụ: 'It is yesterday that we met' thay vì 'It was yesterday').",
+    "cefr_level": "B2"
+  },
+  {
+    "title": "Wh-Cleft Sentences",
+    "pattern_key": "cleft_sentence_what",
+    "formula": "What + S + V + is/was + [thành phần nhấn mạnh]",
+    "usage_vi": "Dùng mệnh đề danh từ bắt đầu bằng 'What' làm chủ ngữ để nhấn mạnh vào điều mong muốn, suy nghĩ hoặc hành động cần làm.",
+    "examples": [
+      {
+        "sentence": "What we really need right now is automated continuous integration.",
+        "translation": "Điều mà chúng tôi thực sự cần ngay lúc này là quy trình tích hợp liên tục tự động."
+      },
+      {
+        "sentence": "What impressed the senior engineer was the clean separation of concerns.",
+        "translation": "Điều làm kỹ sư trưởng ấn tượng là sự phân tách rõ ràng giữa các trách nhiệm trong code."
+      }
+    ],
+    "common_mistakes_vi": "Dùng 'Which' hoặc 'That' ở đầu câu thay cho 'What' (sai: That we need is...).",
+    "cefr_level": "B2"
+  },
+  {
+    "title": "Negative Inversion",
+    "pattern_key": "negative_inversion",
+    "formula": "[Từ phủ định/bán phủ định] + Trợ động từ + S + V",
+    "usage_vi": "Khi đặt các từ như Seldom, Rarely, Never, Scarcely, Hardly, Not only, No sooner ở đầu câu để nhấn mạnh mức độ hiếm hoặc thứ tự hành động, phải đảo trợ động từ lên trước chủ ngữ.",
+    "examples": [
+      {
+        "sentence": "Rarely have we seen such a seamless zero-downtime deployment.",
+        "translation": "Hiếm khi chúng tôi chứng kiến một đợt triển khai không gián đoạn mượt mà đến như vậy."
+      },
+      {
+        "sentence": "Hardly had the service restarted when incoming requests spiked dramatically.",
+        "translation": "Dịch vụ vừa mới khởi động lại thì lưu lượng yêu cầu gửi đến đã tăng đột biến."
+      }
+    ],
+    "common_mistakes_vi": "Quên đảo trợ động từ (sai: Rarely we have seen; đúng: Rarely have we seen).",
+    "cefr_level": "C1"
+  },
+  {
+    "title": "Reduced Relative Clauses (Present Participle)",
+    "pattern_key": "reduced_relative_clause_active",
+    "formula": "Noun + V-ing + (O/A) [thay thế cho Noun + who/which/that + V (chủ động)]",
+    "usage_vi": "Rút gọn mệnh đề quan hệ dạng chủ động bằng cách bỏ đại từ quan hệ và to-be (nếu có), đưa động từ chính về dạng V-ing.",
+    "examples": [
+      {
+        "sentence": "The worker threads processing background jobs operate independently from the API server.",
+        "translation": "Các luồng công việc xử lý tác vụ ngầm hoạt động độc lập với máy chủ API."
+      },
+      {
+        "sentence": "Any query exceeding the two-second threshold will be logged automatically.",
+        "translation": "Bất kỳ truy vấn nào vượt quá ngưỡng hai giây đều sẽ được ghi nhật ký tự động."
+      }
+    ],
+    "common_mistakes_vi": "Nhầm lẫn giữa thể chủ động (dùng V-ing) và bị động (dùng V3/ed).",
+    "cefr_level": "B2"
+  },
+  {
+    "title": "Reduced Relative Clauses (Past Participle)",
+    "pattern_key": "reduced_relative_clause_passive",
+    "formula": "Noun + V3/ed + (by O) [thay thế cho Noun + who/which/that + be + V3/ed (bị động)]",
+    "usage_vi": "Rút gọn mệnh đề quan hệ dạng bị động bằng cách bỏ đại từ quan hệ và trợ động từ 'to be', chỉ giữ lại phân từ hai (V3/ed).",
+    "examples": [
+      {
+        "sentence": "The security patch deployed last night fixed the vulnerability completely.",
+        "translation": "Bản vá bảo mật được triển khai đêm qua đã khắc phục hoàn toàn lỗ hổng."
+      },
+      {
+        "sentence": "All data generated by this synthetic pipeline must be sanitized before training.",
+        "translation": "Mọi dữ liệu sinh ra bởi đường ống nhân tạo này đều phải được làm sạch trước khi huấn luyện."
+      }
+    ],
+    "common_mistakes_vi": "Vẫn giữ lại đại từ quan hệ khi đã dùng phân từ hai (sai: The patch which deployed; đúng: The patch deployed).",
+    "cefr_level": "B2"
+  },
+  {
+    "title": "Mixed Conditionals (Type 3 + Type 2)",
+    "pattern_key": "mixed_conditional_past_present",
+    "formula": "If + S + had + V3/ed, S + would/could/might + V-inf (now)",
+    "usage_vi": "Diễn tả giả định về một hành động không có thật trong quá khứ dẫn đến kết quả khác biệt ở thời điểm hiện tại.",
+    "examples": [
+      {
+        "sentence": "If we had designed a modular architecture from the start, we would not struggle with tech debt today.",
+        "translation": "Nếu chúng tôi đã thiết kế kiến trúc module ngay từ đầu, chúng tôi đã không phải vật lộn với nợ kỹ thuật hôm nay."
+      },
+      {
+        "sentence": "If the engineer had backed up the database yesterday, the system would be fully operational right now.",
+        "translation": "Nếu kỹ sư sao lưu cơ sở dữ liệu ngày hôm qua, hệ thống đã hoạt động bình thường ngay lúc này."
+      }
+    ],
+    "common_mistakes_vi": "Dùng 'would have V3' ở cả hai vế hoặc nhầm lẫn thời gian của nguyên nhân (quá khứ) và kết quả (hiện tại).",
+    "cefr_level": "C1"
+  },
+  {
+    "title": "Subjunctive Mood (Mandative)",
+    "pattern_key": "subjunctive_mood_mandative",
+    "formula": "S + demand/recommend/insist/suggest + that + S + (should) + V-inf",
+    "usage_vi": "Dùng thể giả định sau các động từ hoặc tính từ biểu thị sự cần thiết, yêu cầu hoặc đề xuất. Động từ trong mệnh đề 'that' luôn ở dạng nguyên thể không chia.",
+    "examples": [
+      {
+        "sentence": "The lead architect recommended that every developer write unit tests before opening a pull request.",
+        "translation": "Kiến trúc sư trưởng khuyến nghị rằng mọi lập trình viên đều phải viết unit test trước khi mở pull request."
+      },
+      {
+        "sentence": "It is crucial that the secret keys remain strictly confidential.",
+        "translation": "Điều tối quan trọng là các khóa bí mật phải được giữ kín tuyệt đối."
+      }
+    ],
+    "common_mistakes_vi": "Chia động từ theo chủ ngữ số ít sau 'that' (sai: recommended that he writes; đúng: recommended that he write).",
+    "cefr_level": "B2"
+  }
+]
+

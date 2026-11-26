@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Chỉnh Sửa Ngữ Pháp: {{ item.title }}{% endblock %}
+{% block page_title %}Chỉnh Sửa Cấu Trúc Ngữ Pháp Ground Truth{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-10">
+    <div class="card border-0 shadow-sm">
+      <div class="card-header bg-white py-3">
+        <h6 class="fw-bold mb-0">
+          <i class="bi bi-pencil-square text-primary me-2"></i>
+          Cập nhật công thức ngữ pháp: <span class="text-primary">{{ item.title }}</span>
+        </h6>
+      </div>
+      <div class="card-body p-4">
+        <form method="POST" action="/admin/grammar/{{ item.id }}/edit">
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Tên Cấu Trúc <span class="text-danger">*</span></label>
+              <input type="text" name="title" class="form-control" value="{{ item.title }}" required>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">Pattern Key (Định Danh)</label>
+              <input type="text" name="pattern_key" class="form-control font-monospace" value="{{ item.pattern_key }}" required>
+            </div>
+            <div class="col-md-2">
+              <label class="form-label">CEFR Level</label>
+              <select name="cefr_level" class="form-select">
+                {% for lvl in ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] %}
+                  <option value="{{ lvl }}" {% if item.cefr_level == lvl %}selected{% endif %}>{{ lvl }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Công Thức Cốt Lõi (Formula) <span class="text-danger">*</span></label>
+            <input type="text" name="formula" class="form-control font-monospace text-primary fw-bold" value="{{ item.formula }}" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Giải Thích Cách Dùng Tiếng Việt</label>
+            <textarea name="usage_vi" rows="3" class="form-control" required>{{ item.usage_vi }}</textarea>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Các Câu Ví Dụ (JSON Format)</label>
+            <textarea name="examples_json_raw" rows="5" class="form-control font-monospace small">{{ examples_json_pretty }}</textarea>
+            <small class="text-secondary">Định dạng danh sách các object, ví dụ: <code>[{"en": "Had I known...", "vi": "Nếu tôi biết..."}]</code></small>
+          </div>
+
+          <div class="row g-3 mb-4">
+            <div class="col-md-8">
+              <label class="form-label">Lỗi Thường Gặp (Common Mistakes)</label>
+              <input type="text" name="common_mistakes_vi" class="form-control" value="{{ item.common_mistakes_vi }}">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Trạng Thái Kiểm Định</label>
+              <select name="status" class="form-select">
+                <option value="verified" {% if item.status == 'verified' %}selected{% endif %}>verified (Đã kiểm định)</option>
+                <option value="pending" {% if item.status == 'pending' %}selected{% endif %}>pending (Chờ kiểm duyệt)</option>
+                <option value="quarantined" {% if item.status == 'quarantined' %}selected{% endif %}>quarantined (Cách ly)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between pt-3 border-top">
+            <a href="/admin/grammar" class="btn btn-outline-secondary">
+              <i class="bi bi-arrow-left me-1"></i> Quay Lại
+            </a>
+            <button type="submit" class="btn btn-primary px-4">
+              <i class="bi bi-save me-1"></i> Cập Nhật Ngữ Pháp
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

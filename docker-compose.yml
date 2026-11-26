@@ -1,0 +1,130 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: ai_telegram_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres_secret_change_me}
+      POSTGRES_DB: ${POSTGRES_DB:-ai_telegram}
+    ports:
+      - "${POSTGRES_HOST_PORT:-5436}:5432"
+    volumes:
+      - ${DATA_DIR:-./data}/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-ai_telegram}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - ai_net
+
+  redis:
+    image: redis:7-alpine
+    container_name: ai_telegram_redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "${REDIS_HOST_PORT:-6379}:6379"
+    volumes:
+      - ${DATA_DIR:-./data}/redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - ai_net
+
+  migrator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ai_telegram_migrator
+    env_file:
+      - .env
+    volumes:
+      - ./migrations:/app/migrations
+    command: ["alembic", "upgrade", "head"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ai_net
+
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ai_telegram_bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./src:/app/src
+      - ./tests:/app/tests
+      - ./main.py:/app/main.py
+      - ./data/seeds:/app/data/seeds
+      - ./migrations:/app/migrations
+      - ./datasets:/app/datasets
+    depends_on:
+      migrator:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - ai_net
+
+  admin:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ai_telegram_admin
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${ADMIN_PORT:-8000}:8000"
+    volumes:
+      - ./src:/app/src
+      - ./tests:/app/tests
+      - ./datasets:/app/datasets
+    command: ["uvicorn", "src.admin.app:app", "--host", "0.0.0.0", "--port", "8000"]
+    depends_on:
+      migrator:
+        condition: service_completed_successfully
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - ai_net
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ai_telegram_ollama
+    restart: unless-stopped
+    profiles:
+      - local-llm
+    ports:
+      - "11434:11434"
+    volumes:
+      - ${DATA_DIR:-./data}/ollama:/root/.ollama
+    healthcheck:
+      test: ["CMD-SHELL", "ollama list || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    networks:
+      - ai_net
+
+networks:
+  ai_net:
+    driver: bridge
+

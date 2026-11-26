@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}{% if item %}Chỉnh Sửa Từ Vựng: {{ item.word }}{% else %}Thêm Từ Vựng Mới{% endif %}{% endblock %}
+{% block page_title %}{% if item %}Chỉnh Sửa Từ Vựng{% else %}Thêm Mới Từ Vựng Ground Truth{% endif %}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-10">
+    <div class="card border-0 shadow-sm">
+      <div class="card-header bg-white py-3">
+        <h6 class="fw-bold mb-0">
+          <i class="bi bi-pencil-square text-primary me-2"></i>
+          {% if item %}Cập nhật thông tin từ vựng: <span class="text-primary">{{ item.word }}</span>{% else %}Nhập thông tin từ vựng mới{% endif %}
+        </h6>
+      </div>
+      <div class="card-body p-4">
+        <form method="POST" action="{% if item %}/admin/vocab/{{ item.id }}/edit{% else %}/admin/vocab/create{% endif %}">
+          <!-- Section 1: Basic Info -->
+          <h6 class="text-uppercase text-secondary small fw-bold mb-3 border-bottom pb-2">1. Thông Tin Căn Bản</h6>
+          <div class="row g-3 mb-4">
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">Từ Tiếng Anh <span class="text-danger">*</span></label>
+              <input type="text" name="word" class="form-control" value="{{ item.word if item else '' }}" required autofocus>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Phiên Âm IPA</label>
+              <input type="text" name="phonetic" class="form-control font-monospace" placeholder="/.../" value="{{ item.phonetic if item else '' }}">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Từ Loại</label>
+              <input type="text" name="part_of_speech" class="form-control" placeholder="noun, verb, adj..." value="{{ item.part_of_speech if item else '' }}">
+            </div>
+            <div class="col-md-2">
+              <label class="form-label">CEFR Level</label>
+              <select name="cefr_level" class="form-select">
+                {% for lvl in ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] %}
+                  <option value="{{ lvl }}" {% if item and item.cefr_level == lvl %}selected{% elif not item and lvl == 'B1' %}selected{% endif %}>{{ lvl }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          <!-- Section 2: Definitions -->
+          <h6 class="text-uppercase text-secondary small fw-bold mb-3 border-bottom pb-2">2. Định Nghĩa Song Ngữ</h6>
+          <div class="row g-3 mb-4">
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Định Nghĩa Tiếng Việt <span class="text-danger">*</span></label>
+              <textarea name="definition_vi" rows="3" class="form-control" required>{{ item.definition_vi if item else '' }}</textarea>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Định Nghĩa Tiếng Anh (English Definition)</label>
+              <textarea name="definition_en" rows="3" class="form-control">{{ item.definition_en if item else '' }}</textarea>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Câu Ví Dụ Tiếng Anh</label>
+              <textarea name="example_sentence" rows="2" class="form-control">{{ item.example_sentence if item else '' }}</textarea>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Bản Dịch Ví Dụ Tiếng Việt</label>
+              <textarea name="example_translation" rows="2" class="form-control">{{ item.example_translation if item else '' }}</textarea>
+            </div>
+          </div>
+
+          <!-- Section 3: Quiz Generation -->
+          <h6 class="text-uppercase text-secondary small fw-bold mb-3 border-bottom pb-2">3. Câu Hỏi Trắc Nghiệm Ôn Tập (Quiz SM-2)</h6>
+          <div class="mb-3">
+            <label class="form-label">Câu Hỏi Ôn Tập (Question)</label>
+            <input type="text" name="quiz_question" class="form-control" placeholder="What is the meaning of...?" value="{{ item.quiz_question if item else '' }}">
+          </div>
+          <div class="row g-2 mb-3">
+            <div class="col-md-6">
+              <div class="input-group">
+                <span class="input-group-text">A</span>
+                <input type="text" name="quiz_option_0" class="form-control" value="{{ item.quiz_options[0] if (item and item.quiz_options and item.quiz_options|length > 0) else '' }}">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <span class="input-group-text">B</span>
+                <input type="text" name="quiz_option_1" class="form-control" value="{{ item.quiz_options[1] if (item and item.quiz_options and item.quiz_options|length > 1) else '' }}">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <span class="input-group-text">C</span>
+                <input type="text" name="quiz_option_2" class="form-control" value="{{ item.quiz_options[2] if (item and item.quiz_options and item.quiz_options|length > 2) else '' }}">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <span class="input-group-text">D</span>
+                <input type="text" name="quiz_option_3" class="form-control" value="{{ item.quiz_options[3] if (item and item.quiz_options and item.quiz_options|length > 3) else '' }}">
+              </div>
+            </div>
+          </div>
+          <div class="row g-3 mb-4">
+            <div class="col-md-4">
+              <label class="form-label">Đáp Án Đúng</label>
+              <select name="quiz_correct_index" class="form-select">
+                <option value="0" {% if item and item.quiz_correct_index == 0 %}selected{% endif %}>A</option>
+                <option value="1" {% if item and item.quiz_correct_index == 1 %}selected{% endif %}>B</option>
+                <option value="2" {% if item and item.quiz_correct_index == 2 %}selected{% endif %}>C</option>
+                <option value="3" {% if item and item.quiz_correct_index == 3 %}selected{% endif %}>D</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Trạng Thái Kiểm Định</label>
+              <select name="status" class="form-select">
+                <option value="verified" {% if item and item.status == 'verified' %}selected{% endif %}>verified (Đã kiểm định - Chuẩn QLoRA)</option>
+                <option value="pending" {% if item and item.status == 'pending' %}selected{% endif %}>pending (Chờ kiểm duyệt)</option>
+                <option value="quarantined" {% if item and item.status == 'quarantined' %}selected{% endif %}>quarantined (Cách ly)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between pt-3 border-top">
+            <a href="/admin/vocab" class="btn btn-outline-secondary">
+              <i class="bi bi-arrow-left me-1"></i> Quay Lại
+            </a>
+            <button type="submit" class="btn btn-primary px-4">
+              <i class="bi bi-save me-1"></i> Lưu Dữ Liệu
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Hàng Đợi Kiểm Duyệt OCR & AI Teacher{% endblock %}
+{% block page_title %}Hàng Đợi Kiểm Duyệt Tri Thức (Moderation Queue){% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <p class="text-secondary mb-0">
+      Kiểm duyệt các từ vựng và cấu trúc ngữ pháp được trích xuất tự động từ <strong>OCR Tài liệu (Phase 4)</strong> hoặc <strong>Teacher AI Fallback</strong> trước khi nạp vào bộ huấn luyện QLoRA.
+    </p>
+  </div>
+  <div class="d-flex gap-2">
+    {% if pending_items and pending_items|length > 0 %}
+      <form method="POST" action="/admin/moderation/batch-approve" onsubmit="return confirm('Bạn có chắc muốn phê duyệt TẤT CẢ các mục trong hàng đợi này?')">
+        <button type="submit" class="btn btn-success">
+          <i class="bi bi-check-all me-1"></i> Phê Duyệt Toàn Bộ ({{ pending_items|length }})
+        </button>
+      </form>
+    {% endif %}
+  </div>
+</div>
+
+{% if pending_items and pending_items|length > 0 %}
+  <div class="row g-3">
+    {% for item in pending_items %}
+      <div class="col-12 col-xl-6">
+        <div class="card border-0 shadow-sm moderation-card h-100">
+          <div class="card-body p-4">
+            <!-- Header of card -->
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <div>
+                <span class="fs-4 fw-bold text-primary">{{ item.word }}</span>
+                <span class="text-secondary font-monospace ms-2">{{ item.phonetic or '' }}</span>
+                <span class="badge bg-secondary-subtle text-secondary ms-2">{{ item.part_of_speech or 'n/a' }}</span>
+              </div>
+              <div>
+                <span class="badge badge-cefr-{{ (item.cefr_level or 'b1')|lower }} fs-6">{{ item.cefr_level or 'B1' }}</span>
+              </div>
+            </div>
+
+            <!-- Definition Box -->
+            <div class="mb-3 p-3 bg-light rounded border">
+              <div class="text-muted small fw-bold text-uppercase mb-1">Nghĩa Tiếng Việt</div>
+              <div class="fw-semibold text-dark">{{ item.definition_vi }}</div>
+              {% if item.definition_en %}
+                <div class="text-secondary small mt-1 font-italic">{{ item.definition_en }}</div>
+              {% endif %}
+            </div>
+
+            <!-- Example Context -->
+            {% if item.example_sentence %}
+              <div class="mb-3">
+                <span class="text-muted small fw-bold text-uppercase d-block mb-1">Ngữ Cảnh Trong Tài Liệu / Sách</span>
+                <div class="p-2 border-start border-3 border-primary bg-light-subtle rounded small">
+                  <div class="text-dark fw-medium">{{ item.example_sentence }}</div>
+                  {% if item.example_translation %}
+                    <div class="text-secondary mt-1">{{ item.example_translation }}</div>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+
+            <!-- Metadata footer -->
+            <div class="d-flex justify-content-between align-items-center pt-3 border-top mt-auto">
+              <span class="badge bg-light text-dark border">
+                {% if item.source == 'document_ocr' %}
+                  <i class="bi bi-file-earmark-text text-danger me-1"></i>Bóc tách từ Document OCR
+                {% elif item.source == 'teacher_fallback' %}
+                  <i class="bi bi-cloud-arrow-down text-primary me-1"></i>Hỏi ngoài Teacher AI
+                {% else %}
+                  <i class="bi bi-box text-secondary me-1"></i>Nguồn: {{ item.source }}
+                {% endif %}
+              </span>
+
+              <div class="d-flex gap-2">
+                <form method="POST" action="/admin/vocab/{{ item.id }}/reject" onsubmit="return confirm('Loại bỏ từ vựng này khỏi hệ thống?')">
+                  <button type="submit" class="btn btn-sm btn-outline-danger">
+                    <i class="bi bi-x-lg me-1"></i> Từ Chối
+                  </button>
+                </form>
+                <a href="/admin/vocab/{{ item.id }}/edit" class="btn btn-sm btn-outline-secondary">
+                  <i class="bi bi-pencil me-1"></i> Sửa
+                </a>
+                <form method="POST" action="/admin/vocab/{{ item.id }}/approve">
+                  <button type="submit" class="btn btn-sm btn-success px-3">
+                    <i class="bi bi-check-lg me-1"></i> Phê Duyệt
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="card border-0 shadow-sm py-5 text-center">
+    <div class="card-body">
+      <i class="bi bi-shield-check text-success" style="font-size: 3.5rem;"></i>
+      <h5 class="fw-bold mt-3">Hàng Đợi Trống - Không Có Tri Thức Cần Duyệt</h5>
+      <p class="text-secondary max-w-md mx-auto">
+        Tất cả dữ liệu từ vựng và ngữ pháp đã được xác thực an toàn. Khi người dùng nộp tài liệu PDF/Hình ảnh qua Telegram Bot hoặc hệ thống kích hoạt Teacher AI, các từ mới sẽ tự động xếp vào đây.
+      </p>
+      <a href="/admin/vocab" class="btn btn-outline-primary">
+        <i class="bi bi-translate me-1"></i> Xem Kho Từ Vựng Ground Truth
+      </a>
+    </div>
+  </div>
+{% endif %}
+{% endblock %}
