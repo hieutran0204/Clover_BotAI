@@ -267,7 +267,27 @@ class AIChatService:
         model, model_name = LLMFactory.get_chat_model(backend=active_backend, temperature=0.7)
         messages = self._build_langchain_messages(history, user_message)
 
-        ai_msg = await model.ainvoke(messages)
+        try:
+            ai_msg = await model.ainvoke(messages)
+        except Exception as exc:
+            if active_backend == AIBackend.GEMINI and ("503" in str(exc) or "UNAVAILABLE" in str(exc).upper()):
+                logger.warning(
+                    "Primary Gemini model %s threw 503. Attempting resilient fallback to gemini-2.5-flash-lite...",
+                    model_name,
+                )
+                from langchain_google_genai import ChatGoogleGenerativeAI
+                fallback_chat = ChatGoogleGenerativeAI(
+                    model="gemini-2.5-flash-lite",
+                    google_api_key=get_settings().gemini_api_key,
+                    temperature=0.7,
+                    timeout=30.0,
+                    max_retries=2,
+                )
+                ai_msg = await fallback_chat.ainvoke(messages)
+                model_name = "gemini-2.5-flash-lite"
+            else:
+                raise
+
         reply_text = self._extract_text_content(ai_msg.content)
 
         await self._redis.append_chat_turn(user_id, "human", user_message)

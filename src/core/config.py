@@ -56,7 +56,7 @@ class Settings(BaseSettings):
 
     # Stage 1: Gemini Teacher
     gemini_api_key: str = Field(default="", description="Google Gemini API key")
-    gemini_model: str = Field(default="gemini-3.6-flash", description="Gemini model identifier")
+    gemini_model: str = Field(default="gemini-flash-latest", description="Gemini model identifier")
     gemini_embedding_model: str = Field(
         default="models/gemini-embedding-001", description="Gemini embedding model identifier"
     )

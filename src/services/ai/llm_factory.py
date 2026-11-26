@@ -45,7 +45,7 @@ class LLMFactory:
                 google_api_key=cfg.gemini_api_key,
                 temperature=temperature,
                 timeout=30.0,
-                max_retries=1,
+                max_retries=3,
             )
             return model, cfg.gemini_model
 
