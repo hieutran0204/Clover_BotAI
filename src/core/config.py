@@ -52,11 +52,15 @@ class Settings(BaseSettings):
         return self.max_telegram_file_mb * 1024 * 1024
 
     # 3-Stage AI Backend
-    ai_backend: AIBackend = Field(default=AIBackend.GEMINI, description="Active AI model backend")
+    ai_backend: AIBackend = Field(default=AIBackend.OLLAMA, description="Active AI model backend")
 
     # Stage 1: Gemini Teacher
     gemini_api_key: str = Field(default="", description="Google Gemini API key")
-    gemini_model: str = Field(default="gemini-flash-latest", description="Gemini model identifier")
+    gemini_model: str = Field(default="gemini-flash-latest", description="Gemini primary model identifier")
+    gemini_fallback_model: str = Field(
+        default="gemini-2.5-flash-lite",
+        description="Gemini fallback model identifier when primary encounters high demand (503)",
+    )
     gemini_embedding_model: str = Field(
         default="models/gemini-embedding-001", description="Gemini embedding model identifier"
     )

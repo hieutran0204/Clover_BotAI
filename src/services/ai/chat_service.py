@@ -9,7 +9,7 @@ from typing import Any, Dict, List, Optional, Tuple
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, SystemMessage
 from tenacity import retry, stop_after_attempt, wait_exponential
 
-from src.core.config import AIBackend
+from src.core.config import AIBackend, Settings, get_settings
 from src.schemas.vocab import VocabBatchSchema, VocabSchema
 from src.services.ai.llm_factory import LLMFactory
 from src.services.redis_service import RedisService
@@ -46,14 +46,16 @@ VOCAB_ENRICH_PROMPT = (
 class AIChatService:
     """Orchestrates LLM calls via LangChain with Redis session memory and structured outputs."""
 
-    def __init__(self, redis_service: RedisService) -> None:
+    def __init__(self, redis_service: RedisService, settings: Settings | None = None) -> None:
         """
-        Initialize AIChatService with a RedisService dependency.
+        Initialize AIChatService with RedisService and optional Settings dependencies.
 
         Parameters:
             redis_service (RedisService): Service managing sliding-window memory and query cache.
+            settings (Settings | None): Optional application configuration settings.
         """
         self._redis = redis_service
+        self._settings = settings or get_settings()
 
     @staticmethod
     def _build_langchain_messages(
@@ -272,19 +274,13 @@ class AIChatService:
         except Exception as exc:
             if active_backend == AIBackend.GEMINI and ("503" in str(exc) or "UNAVAILABLE" in str(exc).upper()):
                 logger.warning(
-                    "Primary Gemini model %s threw 503. Attempting resilient fallback to gemini-2.5-flash-lite...",
+                    "Primary Gemini model '%s' unavailable (503). Attempting fallback to configured GEMINI_FALLBACK_MODEL...",
                     model_name,
                 )
-                from langchain_google_genai import ChatGoogleGenerativeAI
-                fallback_chat = ChatGoogleGenerativeAI(
-                    model="gemini-2.5-flash-lite",
-                    google_api_key=get_settings().gemini_api_key,
-                    temperature=0.7,
-                    timeout=30.0,
-                    max_retries=2,
+                fallback_chat, model_name = LLMFactory.get_gemini_fallback_model(
+                    temperature=0.7, settings=self._settings
                 )
                 ai_msg = await fallback_chat.ainvoke(messages)
-                model_name = "gemini-2.5-flash-lite"
             else:
                 raise
 

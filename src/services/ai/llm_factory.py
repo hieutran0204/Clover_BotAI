@@ -68,3 +68,30 @@ class LLMFactory:
 
         raise ValueError(f"Unsupported AI backend: {target}")
 
+    @staticmethod
+    def get_gemini_fallback_model(
+        temperature: float = 0.7,
+        settings: Settings | None = None,
+    ) -> Tuple[BaseChatModel, str]:
+        """
+        Instantiate the configured fallback Gemini chat model for handling high demand (503).
+
+        Parameters:
+            temperature (float): Sampling temperature for generation.
+            settings (Settings | None): Optional settings override.
+        Returns:
+            Tuple[BaseChatModel, str]: Fallback chat model instance and model name.
+        """
+        cfg = settings or get_settings()
+        if not cfg.gemini_api_key:
+            raise ValueError("GEMINI_API_KEY must be configured when using the Gemini backend.")
+        fallback_name = cfg.gemini_fallback_model
+        model = ChatGoogleGenerativeAI(
+            model=fallback_name,
+            google_api_key=cfg.gemini_api_key,
+            temperature=temperature,
+            timeout=30.0,
+            max_retries=2,
+        )
+        return model, fallback_name
+

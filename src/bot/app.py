@@ -100,7 +100,7 @@ def create_application() -> Application:
         raise ValueError("TELEGRAM_BOT_TOKEN must be configured in environment variables.")
 
     redis_service = RedisService()
-    ai_service = AIChatService(redis_service=redis_service)
+    ai_service = AIChatService(redis_service=redis_service, settings=settings)
     embedding_service = EmbeddingService(settings=settings)
     vocab_ingestion = VocabIngestionService(embedding_service=embedding_service)
     vocab_extractor = VocabExtractorService(redis_service=redis_service)
